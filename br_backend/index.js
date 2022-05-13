@@ -1,9 +1,16 @@
 const http = require('http');
 const app = require('./app');
+const mysql = require('mysql');
+const con = require('./database');
 const express = require("express");
 app.use(express.static("public"));
 require('dotenv').config()
-
+  
+  con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+    //con.query('INSERT INTO recettes (label, amount, createdAt, user) VALUES ("maison", 1000, "2022-10-10", "celine");')
+  });
 
 const normalizePort = val => {
   const port = parseInt(val, 10);

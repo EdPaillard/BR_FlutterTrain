@@ -1,11 +1,15 @@
+import 'package:become_rich/model/br_db_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'controller/br_dash_ctrl.dart';
 import 'controller/br_manage_ctrl.dart';
 import 'controller/br_settings_ctrl.dart';
+import 'package:get_it/get_it.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');
+  DbInterface dbInterface = DbInterface();
+  GetIt.I.registerSingleton<DbInterface>(dbInterface);
   runApp(const MyApp());
 }
 
