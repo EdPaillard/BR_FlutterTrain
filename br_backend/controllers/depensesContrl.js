@@ -39,7 +39,8 @@ const depensesController = {
     getAllDepenses: (req, res) => {
         try {
             depensesDataMapper.CheckAllDepenses((err, response) => {
-                const depense = response.rows;
+                const depense = response;
+                console.log(depense)
                 res.json(depense);
             });
         } catch (error) {
