@@ -37,16 +37,18 @@ const depensesController = {
         }
     },
     getAllDepenses: (req, res) => {
-        try {
+        // try {
+            console.log("YO")
             depensesDataMapper.CheckAllDepenses((err, response) => {
+                console.log("CHIC")
                 const depense = response;
                 console.log(depense)
                 res.json(depense);
             });
-        } catch (error) {
-            console.trace(error);
-            res.status(500);
-        }
+        // } catch (error) {
+        //     console.trace(error);
+        //     res.status(500);
+        // }
     },
     modifyDepense: (req, res) => {
         try {

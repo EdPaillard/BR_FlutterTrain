@@ -23,8 +23,9 @@ const depensesDataMapper = {
         ]
         client.query(depense, [values], cb);
     },
-    CheckAllDepenses: (user, cb) => {
-        const depense = `SELECT amount FROM depenses;`;
+    CheckAllDepenses: (cb) => {
+        const depense = 'SELECT amount FROM depenses';
+        console.log("FAART")
         client.query(depense, cb);
     },
     modifyOneDepense: (amount, id, cb) => {
