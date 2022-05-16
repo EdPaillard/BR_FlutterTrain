@@ -10,7 +10,7 @@ router.get('/api/:user/epargne', comptesContrl.getSavedMoney);
 router.get('/api/courant/all', comptesContrl.getAllMoney);
 router.get('/api/epargne/all', comptesContrl.getAllSavedMoney);
 router.get('/api/account/:user/infos', comptesContrl.getUserAccountInfos);
-router.get('/api/account/all/info', comptesContrl.getAllAccountInfos);
+router.get('/api/account/info/all', comptesContrl.getAllAccountInfos);
 router.put('/api/:user/:courant', comptesContrl.modifyCourant);
 router.put('/api/:user/:epargne', comptesContrl.modifyEpargne);
 // router.delete('/api/:user/:courant', comptesContrl.deleteCourant);

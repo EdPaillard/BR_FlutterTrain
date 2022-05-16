@@ -57,7 +57,6 @@ const comptesController = {
     },
     getAllMoney: (req, res) => {
         try {
-            console.log('HEY');
             comptesDataMapper.getAllCourant((err, response) => {
                 const myMoney = response;
                 console.log(myMoney);
@@ -83,7 +82,6 @@ const comptesController = {
     getUserAccountInfos: (req, res) => {
         try {
             comptesDataMapper.getUserComptes(req.params.user, (err, response) => {
-                console.log('PLOP');
                 const myMoney = response;
                 console.log(myMoney);
                 res.json(myMoney);
@@ -96,7 +94,7 @@ const comptesController = {
     getAllAccountInfos: (req, res) => {
         try {
             comptesDataMapper.getAllComptes((err, response) => {
-                const myMoney = response.rows;
+                const myMoney = response;
                 console.log(myMoney);
                 res.json(myMoney);
             });
