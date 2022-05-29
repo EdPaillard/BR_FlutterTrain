@@ -2,8 +2,8 @@ const client = require("../database");
 
 const depensesDataMapper = {
 
-    postDepense: (label, amount, createdAt, user, cb) => {
-        const depense = `INSERT INTO depenses (label, amount, createdAt, user) VALUES ?`;
+    postDepense: (user, label, amount, createdAt, cb) => {
+        const depense = `INSERT INTO depenses (label, amount, createdAt, user) VALUES (?)`;
         const values = [
             label, amount, createdAt, user
         ]
@@ -25,22 +25,19 @@ const depensesDataMapper = {
     },
     CheckAllDepenses: (cb) => {
         const depense = 'SELECT amount FROM depenses';
-        console.log("FAART")
         client.query(depense, cb);
     },
-    modifyOneDepense: (amount, id, cb) => {
-        const depense = `UPDATE depenses SET amount=? WHERE id=?`;
-        const values = [
-            amount, id
-        ]
-        client.query(depense, [values], cb);
+    modifyOneDepense: (id, amount, cb) => {
+        const depense = 'UPDATE depenses SET amount =? WHERE id =?';
+        client.query(depense, [amount, id], cb);
     },
     deleteDepense: (id, cb) => {
-        const depense = `DELETE FROM depenses WHERE id=?`;
-        const values = [
-            id
-        ]
-        client.query(depense, [values], cb);
+        const depense = 'DELETE FROM depenses WHERE id =?';
+        client.query(depense, [id], cb);
+    },
+    getUserFromID: (id, cb) => {
+        const sql = 'SELECT user FROM depenses WHERE id =?'
+        client.query(sql, [id], cb);
     }
 
 }

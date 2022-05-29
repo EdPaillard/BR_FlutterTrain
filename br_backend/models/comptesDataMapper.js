@@ -15,7 +15,7 @@ const comptesDataMapper = {
         client.query(spareAmount_query, [queryUser], cb);
     },
     getUserComptes: (user, cb) => {
-        const spareAmount_query = `SELECT * FROM comptes WHERE user=? ORDER BY atTime`;
+        const spareAmount_query = `SELECT * FROM comptes WHERE user=? ORDER BY atTime ASC`;
         const queryUser= user;
 
         client.query(spareAmount_query, [queryUser], cb);
@@ -26,42 +26,56 @@ const comptesDataMapper = {
     },
     getAllCourant: (cb) => {
         const courAmount_query = 'SELECT courant FROM comptes';
-        client.query(courAmount_query, {cb});
+        client.query(courAmount_query, cb);
     },
     getAllEpargne: (cb) => {
         const spareAmount_query = `SELECT epargne FROM comptes`;
         client.query(spareAmount_query, cb);
     },
+    getLastComptes: (user, cb) => {
+        const sql = 'SELECT courant, epargne FROM comptes WHERE user =? ORDER BY id DESC LIMIT 1'
+        const queryUser = user;
+        client.query(sql, [queryUser], cb);
+    },
     //poster
-    setCourant: (user, amount, cb) => {
-        const courAmount_query = `INSERT INTO comptes (courant, user) VALUES ?`;
+    setComptes: (user, amount, epargne, cb) => {
+        // amount2,
+        const courAmount_query = `INSERT INTO comptes (courant, epargne, user, atTime) VALUES (?)`;
+        const today = new Date();
+
+        const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
         const values = [
-            amount, user
+            amount, epargne, user, date
         ]
         client.query(courAmount_query, [values], cb);
     },
-    setEpargne: (user, amount, cb) => {
-        const spareAmount_query = `INSERT INTO comptes (epargne, user) VALUES ?`;
-        const values = [
-            amount, user
-        ]
-        client.query(spareAmount_query, [values], cb);
-    },
+    // setEpargne: (user, amount, cb) => {
+    //     const spareAmount_query = `INSERT INTO comptes (epargne, courant, user, atTime) VALUES (?)`;
+    //     const today = new Date();
+
+    //     const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    //     const epargne = this.getCourant(user, (res) => {
+    //         return res[res.length - 1].courant;
+    //     })
+    //     const values = [
+    //         amount, epargne, user, date
+    //     ]
+    //     client.query(spareAmount_query, [values], cb);
+    // },
     //puter
-    modifyCourant: (amount, user, cb) => {
-        const courAmount_query = `UPDATE comptes SET courant=? WHERE user=?`;
-        const values = [
-            amount, user
-        ]
-        client.query(courAmount_query, [values], cb);
+    modifyCourant: (id, amount, cb) => {
+        const courAmount_query = 'UPDATE comptes SET courant =? WHERE id =?';
+        
+        console.log(amount + ' ' + id)
+        client.query(courAmount_query, [amount, id], cb);
     },
-    modifyEpargne: (amount, user, cb) => {
-        const spareAmount_query = `UPDATE comptes SET courant=? WHERE user=?`;
-        const values = [
-            amount, user
-        ]
-        client.query(spareAmount_query, [values], cb);
-    },
+    modifyEpargne: (id, amount, cb) => {
+        const spareAmount_query = 'UPDATE comptes SET epargne =? WHERE id =?';
+        
+        console.log(amount + ' ' + id)
+        client.query(spareAmount_query, [amount, id], cb);
+    }
     //deleter
     // deleteCourant: (user, cb) => {
     //     const courAmount_query = {

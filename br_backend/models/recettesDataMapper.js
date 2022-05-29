@@ -3,22 +3,15 @@ const client = require("../database");
 const recettesDataMapper = {
 
     postRecette: (label, amount, createdAt, user, cb) => {
-        const userStr = user.toString();
-        console.log(typeof userStr);
-        console.log(typeof user);
-        const recette = `INSERT INTO recettes (label, amount, createdAt, user) VALUES ?`;
+        const recette = `INSERT INTO recettes (label, amount, createdAt, user) VALUES (?)`;
         const values = [
             label, amount, createdAt, user
         ]
-        console.log(recette);
-        client.query(recette, [values], {cb});
+        client.query(recette, [values], cb);
     },
     checkOneRecette: (id, cb) => {
         const recette = `SELECT amount FROM recettes WHERE id=?`;
-        const values = [
-            id
-        ]
-        client.query(recette, [values], cb);
+        client.query(recette, [id], cb);
     },
     CheckRecette: (user, cb) => {
         const recette = `SELECT amount FROM recettes WHERE user=?`;
@@ -28,22 +21,24 @@ const recettesDataMapper = {
         client.query(recette, [values], cb);
     },
     CheckAllRecette: (cb) => {
-        const recette = `SELECT amount FROM recettes;`;
+        const recette = `SELECT amount FROM recettes`;
         client.query(recette, cb);
     },
-    modifyOneRecette: (amount, id, cb) => {
-        const recette = `UPDATE recettes SET amount=? WHERE id=?`;
-        const values = [
-            amount, id
-        ]
-        client.query(recette, [values], cb);
+    modifyOneRecette: (id, amount, cb) => {
+        const recette = 'UPDATE recettes SET amount =? WHERE id =?';
+
+        client.query(recette, [amount, id], cb);
     },
-    checkOneRecette: (id, cb) => {
-        const recette = `DELETE FROM recettes WHERE id=?`;
+    deleteRecette: (id, cb) => {
+        const recette = 'DELETE FROM recettes WHERE id =?';
         const values = [
             id
         ]
         client.query(recette, [values], cb);
+    },
+    getUserFromID: (id, cb) => {
+        const sql = 'SELECT user FROM recettes WHERE id =?'
+        client.query(sql, [id], cb);
     }
 }
 
