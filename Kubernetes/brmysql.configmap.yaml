@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: brmysql-configmap
+  labels:
+    app: brmysql
+data:
+  MYSQL_HOST: brmysql-svc
+  MYSQL_TCP_PORT: '3306'
+  MYSQL_DATABASE: becomerich

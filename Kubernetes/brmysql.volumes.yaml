@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: brmysql-pv
+  labels:
+    type: local
+    app: brmysql
+  namespace: becomerich
+spec:
+  storageClassName: brmysql-storage
+  claimRef:
+    name: brmysql-pvc
+    namespace: becomerich
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: brmysql-pvc
+  labels:
+    app: brmysql
+  namespace: becomerich
+spec:
+  storageClassName: brmysql-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi

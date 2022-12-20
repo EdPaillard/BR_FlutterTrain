@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: brmysql-ingress
+  labels:
+    app: ingress
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: br-mysql
+  namespace: default
+spec:
+  rules:
+  - host:
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: brmysql-svc
+            port: 
+              number: 3306

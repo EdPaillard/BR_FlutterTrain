@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: br-backend
+  labels:
+    app: br-backend
+  namespace: becomerich
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: br-backend
+  template:
+    metadata:
+      labels:
+        app: br-backend
+    spec:
+      containers:
+        - name: br-backend
+          image: 162.19.66.30:7000/brbackend
+          ports:
+            - containerPort: 5500
+          env:
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: brmysql-secret
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: brmysql-secret
+                  key: MYSQL_PASSWORD
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: brmysql-configmap
+                  key: MYSQL_HOST
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: brmysql-configmap
+                  key: MYSQL_DATABASE
+            - name: MYSQL_TCP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: brmysql-configmap
+                  key: MYSQL_TCP_PORT
