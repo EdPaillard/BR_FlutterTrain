@@ -3,10 +3,10 @@ const router = express.Router();
 
 const comptesContrl = require('../controllers/comptesContrl');
 
-router.post('/api/:user/comptes', comptesContrl.saveMoney);
+router.post('/api/:user_id/comptes', comptesContrl.saveMoney);
 //router.post('/api/:user/epargne', comptesContrl.saveMoreMoney);
-router.get('/api/:user/courant', comptesContrl.getMyMoney);
-router.get('/api/:user/epargne', comptesContrl.getSavedMoney);
+router.get('/api/:user_id/courant', comptesContrl.getMyMoney);
+router.get('/api/:user_id/epargne', comptesContrl.getSavedMoney);
 router.get('/api/courant/all', comptesContrl.getAllMoney);
 router.get('/api/epargne/all', comptesContrl.getAllSavedMoney);
 router.get('/api/account/:user/infos', comptesContrl.getUserAccountInfos);

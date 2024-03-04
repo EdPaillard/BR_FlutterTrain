@@ -1,6 +1,5 @@
 const http = require('http');
 const app = require('./app');
-const mysql = require('mysql');
 const con = require('./database');
 const express = require("express");
 app.use(express.static("public"));

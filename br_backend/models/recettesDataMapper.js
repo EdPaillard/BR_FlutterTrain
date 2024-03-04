@@ -3,7 +3,7 @@ const client = require("../database");
 const recettesDataMapper = {
 
     postRecette: (label, amount, createdAt, user, cb) => {
-        const recette = `INSERT INTO recettes (label, amount, createdAt, user) VALUES (?)`;
+        const recette = `INSERT INTO recettes (label, amount, createdAt, user_id) VALUES (?)`;
         const values = [
             label, amount, createdAt, user
         ]
@@ -14,7 +14,7 @@ const recettesDataMapper = {
         client.query(recette, [id], cb);
     },
     CheckRecette: (user, cb) => {
-        const recette = `SELECT amount FROM recettes WHERE user=?`;
+        const recette = `SELECT amount FROM recettes WHERE user_id=?`;
         const values = [
             user
         ]
@@ -37,7 +37,7 @@ const recettesDataMapper = {
         client.query(recette, [values], cb);
     },
     getUserFromID: (id, cb) => {
-        const sql = 'SELECT user FROM recettes WHERE id =?'
+        const sql = 'SELECT user_id FROM recettes WHERE id =?'
         client.query(sql, [id], cb);
     }
 }

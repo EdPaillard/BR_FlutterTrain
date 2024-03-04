@@ -5,7 +5,7 @@ const comptesController = {
     saveMoney: (req, res) => {
         try {
             const money = req.body;
-            comptesDataMapper.setComptes(money.user, money.amount1, money.amount2, (err, response) => {
+            comptesDataMapper.setComptes(money.user_id, money.amount1, money.amount2, (err, response) => {
                 if (err) {
                     console.trace(err);
                     return res.status(500);
@@ -33,7 +33,7 @@ const comptesController = {
     // },
     getMyMoney: (req, res) => {
         try {
-            comptesDataMapper.getCourant(req.params.user, (err, response) => {
+            comptesDataMapper.getCourant(req.params.user_id, (err, response) => {
                 const myMoney = response;
                 console.log(myMoney);
                 console.log(myMoney[myMoney.length - 1].courant)
@@ -46,7 +46,7 @@ const comptesController = {
     },
     getSavedMoney: (req, res) => {
         try {
-            comptesDataMapper.getEpargne(req.params.user, (err, response) => {
+            comptesDataMapper.getEpargne(req.params.user_id, (err, response) => {
                 const myMoney = response;
                 console.log(myMoney);
                 res.json(myMoney);
@@ -82,7 +82,7 @@ const comptesController = {
     },
     getUserAccountInfos: (req, res) => {
         try {
-            comptesDataMapper.getUserComptes(req.params.user, (err, response) => {
+            comptesDataMapper.getUserComptes(req.params.user_id, (err, response) => {
                 const myMoney = response;
                 console.log(myMoney);
                 res.json(myMoney);

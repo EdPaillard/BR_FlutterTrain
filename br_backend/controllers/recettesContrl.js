@@ -16,8 +16,8 @@ const recettesController = {
 
             //     comptesDataMapper.setComptes(req.params.user, newCourant, lastEpargne, () => {})
             // })
-            accountsCtrl.amountFlux(req.params.user, money.amount, "recette");
-            recettesDataMapper.postRecette(money.label, money.amount, money.createdAt, req.params.user, (err, response) => {
+            accountsCtrl.amountFlux(req.params.user_id, money.amount, "recette");
+            recettesDataMapper.postRecette(money.label, money.amount, money.createdAt, req.params.user_id, (err, response) => {
                 res.status(200).json({'Success' : 'Vous voilà plus riche !'});
             });
         } catch (error) {
@@ -38,7 +38,7 @@ const recettesController = {
     },
     getRecettes: (req, res) => {
         try {
-            recettesDataMapper.CheckRecette(req.params.user, (err, response) => {
+            recettesDataMapper.CheckRecette(req.params.user_id, (err, response) => {
                 const recette = response;
                 res.json(recette);
             });

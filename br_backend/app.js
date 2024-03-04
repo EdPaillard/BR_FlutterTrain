@@ -5,6 +5,7 @@ require('dotenv').config();
 const comptesRouter = require("./routes/comptesRouter");
 const depensesRouter = require("./routes/depensesRouter");
 const recettesRouter = require("./routes/recettesRouter");
+const usersRouter = require("./routes/usersRouter");
 
 
 
@@ -35,5 +36,6 @@ app.use(cors());
 app.use(comptesRouter);
 app.use(depensesRouter);
 app.use(recettesRouter);
+app.use(usersRouter);
 
 module.exports = app;

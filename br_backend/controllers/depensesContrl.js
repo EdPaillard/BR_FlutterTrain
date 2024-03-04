@@ -17,8 +17,8 @@ const depensesController = {
 
             //     comptesDataMapper.setComptes(req.params.user, newCourant, lastEpargne, () => {})
             // })
-            accountsCtrl.amountFlux(req.params.user, money.amount, "depense");
-            depensesDataMapper.postDepense(req.params.user, money.label, money.amount, money.createdAt, (err, response) => {
+            accountsCtrl.amountFlux(req.params.user_id, money.amount, "depense");
+            depensesDataMapper.postDepense(req.params.user_id, money.label, money.amount, money.createdAt, (err, response) => {
                 res.status(200).json({"success" : "Vous vous êtes appauvri !"});
             });
         } catch (error) {
@@ -39,7 +39,7 @@ const depensesController = {
     },
     getDepenses: (req, res) => {
         try {
-            depensesDataMapper.CheckDepenses(req.params.user, (err, response) => {
+            depensesDataMapper.CheckDepenses(req.params.user_id, (err, response) => {
                 const depense = response;
                 res.json(depense);
             });

@@ -3,19 +3,19 @@ const client = require("../database");
 const comptesDataMapper = {
     //getter
     getCourant: (user, cb) => {
-        const courAmount_query = `SELECT courant FROM comptes WHERE user=?`;
+        const courAmount_query = `SELECT courant FROM comptes WHERE user_id=?`;
         const queryUser= user;
 
         client.query(courAmount_query, [queryUser], cb);
     },
     getEpargne: (user, cb) => {
-        const spareAmount_query = `SELECT epargne FROM comptes WHERE user=?`;
+        const spareAmount_query = `SELECT epargne FROM comptes WHERE user_id=?`;
         const queryUser= user;
 
         client.query(spareAmount_query, [queryUser], cb);
     },
     getUserComptes: (user, cb) => {
-        const spareAmount_query = `SELECT * FROM comptes WHERE user=? ORDER BY atTime ASC`;
+        const spareAmount_query = `SELECT * FROM comptes WHERE user_id=? ORDER BY atTime ASC`;
         const queryUser= user;
 
         client.query(spareAmount_query, [queryUser], cb);
@@ -33,14 +33,14 @@ const comptesDataMapper = {
         client.query(spareAmount_query, cb);
     },
     getLastComptes: (user, cb) => {
-        const sql = 'SELECT courant, epargne FROM comptes WHERE user =? ORDER BY id DESC LIMIT 1'
+        const sql = 'SELECT courant, epargne FROM comptes WHERE user_id =? ORDER BY id DESC LIMIT 1'
         const queryUser = user;
         client.query(sql, [queryUser], cb);
     },
     //poster
     setComptes: (user, amount, epargne, cb) => {
         // amount2,
-        const courAmount_query = `INSERT INTO comptes (courant, epargne, user, atTime) VALUES (?)`;
+        const courAmount_query = `INSERT INTO comptes (courant, epargne, user_id, atTime) VALUES (?)`;
         const today = new Date();
 
         const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();

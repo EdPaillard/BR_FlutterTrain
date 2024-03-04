@@ -3,7 +3,7 @@ const client = require("../database");
 const depensesDataMapper = {
 
     postDepense: (user, label, amount, createdAt, cb) => {
-        const depense = `INSERT INTO depenses (label, amount, createdAt, user) VALUES (?)`;
+        const depense = `INSERT INTO depenses (label, amount, createdAt, user_id) VALUES (?)`;
         const values = [
             label, amount, createdAt, user
         ]
@@ -17,7 +17,7 @@ const depensesDataMapper = {
         client.query(depense, [values], cb);
     },
     CheckDepenses: (user, cb) => {
-        const depense = `SELECT amount FROM depenses WHERE user=?`;
+        const depense = `SELECT amount FROM depenses WHERE user_id=?`;
         const values = [
             user
         ]
@@ -36,7 +36,7 @@ const depensesDataMapper = {
         client.query(depense, [id], cb);
     },
     getUserFromID: (id, cb) => {
-        const sql = 'SELECT user FROM depenses WHERE id =?'
+        const sql = 'SELECT user_id FROM depenses WHERE id =?'
         client.query(sql, [id], cb);
     }
 
