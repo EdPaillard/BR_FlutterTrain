@@ -1,18 +1,17 @@
+import 'package:become_rich/Models/User/user.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-const apiRoute = 'http://162.19.66.30:5500/api';
+// const apiRoute = 'http://162.19.66.30:5500/api';
+const apiRoute = 'http://192.168.1.19:5500/api';
 
 class DbInterface {
-  DbInterface({required this.user});
-  String user;
-
   // Comptes
   // Getter
-  Future<List<int>> getUserAccount(user) async {
+  Future<List<int>> getUserAccount(int userID) async {
     List<int> userCourant = [];
     http.Response response =
-        await http.get(Uri.parse('$apiRoute/$user/courant'));
+        await http.get(Uri.parse('$apiRoute/$userID/courant'));
 
     var decodedData = jsonDecode(response.body);
     for (var element in decodedData) {
@@ -22,10 +21,10 @@ class DbInterface {
     return userCourant;
   }
 
-  Future getUserEpargne(user) async {
+  Future getUserEpargne(int userID) async {
     List<int> userEpargne = [];
     http.Response response =
-        await http.get(Uri.parse('$apiRoute/$user/epargne'));
+        await http.get(Uri.parse('$apiRoute/$userID/epargne'));
 
     var decodedData = jsonDecode(response.body);
     for (var element in decodedData) {
@@ -61,10 +60,10 @@ class DbInterface {
     return allEpargne;
   }
 
-  Future getUserAccountInfos(user) async {
+  Future getUserAccountInfos(int userID) async {
     List<Map<String, dynamic>> userAccountMap = [];
     http.Response response =
-        await http.get(Uri.parse('$apiRoute/account/$user/infos'));
+        await http.get(Uri.parse('$apiRoute/account/$userID/infos'));
 
     var decodedData = jsonDecode(response.body);
     userAccountMap = mapFormat(decodedData);
@@ -116,8 +115,8 @@ class DbInterface {
     return mapUserAccount;
   }
 
-  Future<List<Map<String, dynamic>>> manageDataUserAccount() async {
-    List<dynamic> userAccountInfos = await getUserAccountInfos(user);
+  Future<List<Map<String, dynamic>>> manageDataUserAccount(int userID) async {
+    List<dynamic> userAccountInfos = await getUserAccountInfos(userID);
 
     int dateVariable = 0;
     var now = DateTime.now().toUtc();
@@ -181,6 +180,46 @@ class DbInterface {
   }
 
   // Dépenses
+  Future<dynamic> userDepense(int userID) async {
+    http.Response response = await http.get(
+      Uri.parse('$apiRoute/$userID/depense'),
+    );
+
+    dynamic decodedData = jsonDecode(response.body);
+    return decodedData;
+  }
 
   // Recettes
+  Future<dynamic> userRecette(int userID) async {
+    http.Response response = await http.get(
+      Uri.parse('$apiRoute/$userID/recette'),
+    );
+
+    dynamic decodedData = jsonDecode(response.body);
+    return decodedData;
+  }
+
+  // Login/Register
+  Future<dynamic> userRegister(dynamic body) async {
+    http.Response response =
+        await http.post(Uri.parse('$apiRoute/register'), body: body);
+
+    User decodedData = jsonDecode(response.body);
+    return decodedData;
+  }
+
+  Future<Map<String, dynamic>> userLogin(dynamic body) async {
+    http.Response response =
+        await http.post(Uri.parse('$apiRoute/login'), body: body);
+
+    if (response.statusCode != 200) {
+      print(response.body);
+      var decodedData = jsonDecode(response.body);
+      return decodedData;
+    } else {
+      var decodedData = jsonDecode(response.body);
+      print(decodedData);
+      return decodedData;
+    }
+  }
 }

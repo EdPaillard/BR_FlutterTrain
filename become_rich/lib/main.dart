@@ -1,3 +1,4 @@
+import 'package:become_rich/view/br_loginscreen.dart';
 import 'package:flutter/material.dart';
 import 'view/br_dashboard.dart';
 import 'view/br_loadingscreen.dart';
@@ -16,9 +17,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: "/loading",
+      initialRoute: "/login",
       routes: {
-        '/loading': (context) => const LoadingScreen(),
+        '/login': (context) => LoginScreen(),
+        // '/loading': (context) => const LoadingScreen(),
         '/dashboard': (context) => Dashboard(managedUserAccountInfos: const []),
         // '/budget': (context) => const BudgetController(),
         // '/settings': (context) => const OptionsController(),
